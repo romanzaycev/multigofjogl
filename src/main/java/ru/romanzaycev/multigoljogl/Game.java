@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.nio.IntBuffer;
+import java.time.Clock;
 import java.util.Random;
 
 public class Game extends JFrame implements GLEventListener, KeyListener {
@@ -22,6 +23,8 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
     private static final int TARGET_FPS = 60;
 
     private static final int BOARD_GENERATION_THREADS = 16;
+
+    private static final int GEN_DELAY_MILLS = 50;
 
     //
     private static final long serialVersionUID = 1L;
@@ -44,11 +47,13 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
     private static class UpdateWorldThread implements Runnable {
         private GenerationBuilder builder;
         private BoardHandler boardHandler;
+        private int delay;
         private volatile boolean running = true;
 
-        public UpdateWorldThread(GenerationBuilder builder, BoardHandler boardHandler) {
+        public UpdateWorldThread(GenerationBuilder builder, BoardHandler boardHandler, int genDelayMills) {
             this.builder = builder;
             this.boardHandler = boardHandler;
+            this.delay = genDelayMills;
         }
 
         public void terminate() {
@@ -58,7 +63,20 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
         @Override
         public void run() {
             while (running) {
+                long ms = Clock.systemUTC().millis();
                 boardHandler.setBoard(builder.getNextGeneration(boardHandler.getBoard()));
+
+                if (delay > 0) {
+                    long md = Clock.systemUTC().millis() - ms;
+
+                    if (md < delay) {
+                        try {
+                            Thread.sleep(delay - md);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
         }
     }
@@ -102,7 +120,7 @@ public class Game extends JFrame implements GLEventListener, KeyListener {
         }
 
         boardHandler.setBoard(currentGeneration);
-        updateBoardThread = new UpdateWorldThread(generationBuilder, boardHandler);
+        updateBoardThread = new UpdateWorldThread(generationBuilder, boardHandler, GEN_DELAY_MILLS);
         Thread t = new Thread(updateBoardThread);
         t.start();
 
