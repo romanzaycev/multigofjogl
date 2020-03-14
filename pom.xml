@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.romanzaycev</groupId>
-    <artifactId>multigofjogl</artifactId>
+    <artifactId>multigoljogl</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
     
@@ -76,7 +76,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>ru.romanzaycev.multigofjogl.Main</mainClass>
+                            <mainClass>ru.romanzaycev.multigoljogl.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

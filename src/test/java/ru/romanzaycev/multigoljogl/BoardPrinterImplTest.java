@@ -1,4 +1,4 @@
-package ru.romanzaycev.multigofjogl;
+package ru.romanzaycev.multigoljogl;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

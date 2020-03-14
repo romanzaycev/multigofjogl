@@ -1,4 +1,4 @@
-package ru.romanzaycev.multigofjogl;
+package ru.romanzaycev.multigoljogl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class PooledGenerationBuilder implements GenerationBuilder {
         for (int i = 0; i < threads; i++) {
             s -= chunkSize;
             Thread t = new Thread(
-                    new AlgoThread(
+                    new CalculationThread(
                             currentGeneration,
                             nextGeneration,
                             chunkSize * i,
@@ -46,13 +46,13 @@ public class PooledGenerationBuilder implements GenerationBuilder {
         return nextGeneration;
     }
 
-    class AlgoThread implements Runnable {
+    static class CalculationThread implements Runnable {
         private Board currentGeneration;
         private Board nextGeneration;
         private int start;
         private int chunkSize;
 
-        AlgoThread(Board currentGeneration, Board nextGeneration, int start, int chunkSize) {
+        CalculationThread(Board currentGeneration, Board nextGeneration, int start, int chunkSize) {
             this.currentGeneration = currentGeneration;
             this.nextGeneration = nextGeneration;
             this.start = start;
@@ -61,7 +61,7 @@ public class PooledGenerationBuilder implements GenerationBuilder {
 
         @Override
         public void run() {
-            GofAlgorithm.calculateChunk(chunkSize, start, currentGeneration, nextGeneration);
+            GolAlgorithm.calculateChunk(chunkSize, start, currentGeneration, nextGeneration);
         }
     }
 }

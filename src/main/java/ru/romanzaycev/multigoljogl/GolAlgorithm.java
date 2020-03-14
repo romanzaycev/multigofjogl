@@ -1,6 +1,6 @@
-package ru.romanzaycev.multigofjogl;
+package ru.romanzaycev.multigoljogl;
 
-public class GofAlgorithm {
+public class GolAlgorithm {
     public static void calculateChunk(int chunkSize, int start, Board currentGeneration, Board nextGeneration) {
         final int size = start + chunkSize;
 

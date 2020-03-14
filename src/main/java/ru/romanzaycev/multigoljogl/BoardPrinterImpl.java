@@ -1,4 +1,4 @@
-package ru.romanzaycev.multigofjogl;
+package ru.romanzaycev.multigoljogl;
 
 public class BoardPrinterImpl implements BoardPrinter {
     @Override

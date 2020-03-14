@@ -1,4 +1,4 @@
-package ru.romanzaycev.multigofjogl;
+package ru.romanzaycev.multigoljogl;
 
 public class Main {
     public static void main(String[] args) {

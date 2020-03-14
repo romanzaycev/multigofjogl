@@ -1,4 +1,4 @@
-package ru.romanzaycev.multigofjogl;
+package ru.romanzaycev.multigoljogl;
 
 public class GenerationBuilderImpl implements GenerationBuilder {
     @Override
@@ -7,7 +7,7 @@ public class GenerationBuilderImpl implements GenerationBuilder {
         final int height = currentGeneration.getHeight();
 
         Board nextGeneration = new BoardImpl(width, height);
-        GofAlgorithm.calculateChunk(width * height, 0, currentGeneration, nextGeneration);
+        GolAlgorithm.calculateChunk(width * height, 0, currentGeneration, nextGeneration);
 
         return nextGeneration;
     }
